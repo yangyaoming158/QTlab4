@@ -1,0 +1,7 @@
+<RCC>
+    <qresource prefix="/">
+        <file>images/login-box-line.png</file>
+        <file>images/logout-box-line.png</file>
+        <file>images/text-wrap.png</file>
+    </qresource>
+</RCC>

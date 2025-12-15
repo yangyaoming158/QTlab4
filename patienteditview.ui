@@ -1,0 +1,330 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>PatientEditView</class>
+ <widget class="QWidget" name="PatientEditView">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>744</width>
+    <height>361</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>患者编辑</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">/* 1. 全局字体与背景 */
+QWidget {
+    font-family: &quot;Microsoft YaHei&quot;, &quot;Segoe UI&quot;;
+    font-size: 14px;
+    background-color: #F5F7FA; /* 整体背景：极淡的灰蓝色，比纯灰更高级 */
+}
+
+/* 2. 核心卡片样式 (那个 QFrame) */
+QFrame#editFrame {
+    background-color: #FFFFFF; /* 纯白卡片背景 */
+    border: 1px solid #E4E7ED; /* 边框 */
+    border-radius: 10px;       /* 圆角 */
+    /* 注意：Qt Designer里看不到阴影，运行后也许需要C++代码加阴影，这里先做边框 */
+}
+
+/* 3. 标签样式 (ID, 姓名等) */
+QLabel {
+    color: #606266; /* 深灰色文字 */
+    font-weight: bold;
+    font-size: 14px;
+    padding-right: 10px; /* 让标签和输入框有点距离 */
+    background-color: transparent; /* 标签背景透明 */
+}
+
+/* 4. 输入框通用样式 (LineEdit, DateEdit, ComboBox, SpinBox) */
+QLineEdit, QDateEdit, QComboBox, QDoubleSpinBox, QSpinBox {
+    border: 1px solid #DCDFE6; /* 浅灰边框 */
+    border-radius: 4px;        /* 小圆角 */
+    padding: 6px 10px;         /* 内边距，让输入框高一点，不那么挤 */
+    background-color: #FFFFFF;
+    color: #333;
+    min-width: 200px;          /* 保证输入框够长 */
+    min-height: 20px;
+}
+
+/* 输入框获得焦点时变蓝 */
+QLineEdit:focus, QDateEdit:focus, QComboBox:focus, QDoubleSpinBox:focus {
+    border: 1px solid #409EFF;
+}
+
+/* 5. 按钮样式优化 */
+
+/* 保存按钮 - 蓝色主色调 */
+QPushButton[text=&quot;保存&quot;] {
+    background-color: #409EFF;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 8px 25px;
+    font-size: 14px;
+}
+QPushButton[text=&quot;保存&quot;]:hover {
+    background-color: #66B1FF;
+}
+QPushButton[text=&quot;保存&quot;]:pressed {
+    background-color: #3A8EE6;
+}
+
+/* 取消按钮 - 朴素风格 */
+QPushButton[text=&quot;取消&quot;] {
+    background-color: #FFFFFF;
+    color: #606266;
+    border: 1px solid #DCDFE6;
+    border-radius: 4px;
+    padding: 8px 25px;
+    font-size: 14px;
+}
+QPushButton[text=&quot;取消&quot;]:hover {
+    color: #409EFF;
+    border-color: #c6e2ff;
+    background-color: #ecf5ff;
+}
+
+/* 顶部导航按钮 (返回/注销) 保持透明 */
+QPushButton#btn_return, QPushButton#btn_logout {
+    background: transparent;
+    border: none;
+    color: #606266;
+    font-size: 14px;
+}
+QPushButton#btn_return:hover, QPushButton#btn_logout:hover {
+    color: #409EFF;
+}</string>
+  </property>
+  <layout class="QHBoxLayout" name="horizontalLayout_9">
+   <item>
+    <spacer name="horizontalSpacer">
+     <property name="orientation">
+      <enum>Qt::Orientation::Horizontal</enum>
+     </property>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>40</width>
+       <height>20</height>
+      </size>
+     </property>
+    </spacer>
+   </item>
+   <item>
+    <layout class="QVBoxLayout" name="verticalLayout">
+     <item>
+      <layout class="QHBoxLayout" name="horizontalLayout">
+       <item>
+        <widget class="QLabel" name="label">
+         <property name="text">
+          <string>ID:</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLineEdit" name="lineEdit_ID"/>
+       </item>
+      </layout>
+     </item>
+     <item>
+      <layout class="QHBoxLayout" name="horizontalLayout_2">
+       <item>
+        <widget class="QLabel" name="label_2">
+         <property name="text">
+          <string>姓名:</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLineEdit" name="lineEdit_Name"/>
+       </item>
+      </layout>
+     </item>
+     <item>
+      <layout class="QHBoxLayout" name="horizontalLayout_3">
+       <item>
+        <widget class="QLabel" name="label_3">
+         <property name="text">
+          <string>身份证:</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLineEdit" name="lineEdit_IDCard"/>
+       </item>
+      </layout>
+     </item>
+     <item>
+      <layout class="QHBoxLayout" name="horizontalLayout_4">
+       <item>
+        <widget class="QLabel" name="label_8">
+         <property name="text">
+          <string>出生日期:</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QDateEdit" name="dateEdit_DOB">
+         <property name="displayFormat">
+          <string>yyyy/MM/dd</string>
+         </property>
+         <property name="calendarPopup">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item>
+      <layout class="QHBoxLayout" name="horizontalLayout_8">
+       <item>
+        <widget class="QLabel" name="label_4">
+         <property name="text">
+          <string>性别:</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QComboBox" name="comboBox_Sex">
+         <item>
+          <property name="text">
+           <string>请选择</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>男</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>女</string>
+          </property>
+         </item>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item>
+      <layout class="QHBoxLayout" name="horizontalLayout_7">
+       <item>
+        <widget class="QLabel" name="label_7">
+         <property name="text">
+          <string>手机号:</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLineEdit" name="lineEdit_Number"/>
+       </item>
+      </layout>
+     </item>
+     <item>
+      <layout class="QHBoxLayout" name="horizontalLayout_6">
+       <item>
+        <widget class="QLabel" name="label_6">
+         <property name="text">
+          <string>体重:</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QSpinBox" name="spinBox_Weight">
+         <property name="suffix">
+          <string>kg</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item>
+      <layout class="QHBoxLayout" name="horizontalLayout_5">
+       <item>
+        <widget class="QLabel" name="label_5">
+         <property name="text">
+          <string>身高:</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QSpinBox" name="spinBox_Height">
+         <property name="suffix">
+          <string>cm</string>
+         </property>
+         <property name="maximum">
+          <number>300</number>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <layout class="QVBoxLayout" name="verticalLayout_3">
+     <item>
+      <spacer name="verticalSpacer">
+       <property name="orientation">
+        <enum>Qt::Orientation::Vertical</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>20</width>
+         <height>40</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item>
+      <spacer name="horizontalSpacer_2">
+       <property name="orientation">
+        <enum>Qt::Orientation::Horizontal</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>40</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item>
+      <layout class="QVBoxLayout" name="verticalLayout_2">
+       <item>
+        <widget class="QPushButton" name="btn_Save">
+         <property name="text">
+          <string>保存</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="btn_Cancel">
+         <property name="text">
+          <string>取消</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <spacer name="horizontalSpacer_3">
+     <property name="orientation">
+      <enum>Qt::Orientation::Horizontal</enum>
+     </property>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>40</width>
+       <height>20</height>
+      </size>
+     </property>
+    </spacer>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
