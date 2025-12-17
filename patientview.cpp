@@ -4,6 +4,29 @@
 #include <QMessageBox>
 #include <QSqlRecord>
 #include <QDebug>
+#include <QStyledItemDelegate>
+
+// 定义一个自定义代理类
+class SexDelegate : public QStyledItemDelegate
+{
+public:
+    SexDelegate(QObject *parent = nullptr) : QStyledItemDelegate(parent) {}
+
+    // 重写显示文本的函数
+    QString displayText(const QVariant &value, const QLocale &locale) const override
+    {
+        // 这里假设数据库存的是：1代表男，2代表女（根据你之前的截图）
+        // 请根据你实际情况修改判断逻辑
+        int sex = value.toInt();
+        if (sex == 1) {
+            return "男";
+        } else if (sex == 2) {
+            return "女";
+        } else {
+            return "未知"; // 或者返回 value.toString()
+        }
+    }
+};
 
 PatientView::PatientView(QWidget *parent)
     : QWidget(parent)
@@ -47,6 +70,13 @@ void PatientView::initModel()
     // 4. 将模型绑定到 UI 上的 tableView
     ui->tableView->setModel(model);
 
+    // 【新增】给性别列安装代理
+    // 1. 获取性别列的索引
+    int sexColumnIndex = model->fieldIndex("SEX");
+
+    // 2. 创建并设置代理
+    // 注意：SexDelegate 会随着 PatientView 的销毁而自动销毁，因为传了 this
+    ui->tableView->setItemDelegateForColumn(sexColumnIndex, new SexDelegate(this));
     // 6. UI 交互优化
     ui->tableView->setSelectionBehavior(QAbstractItemView::SelectRows); // 选中整行
     ui->tableView->setEditTriggers(QAbstractItemView::NoEditTriggers); // 禁止在列表中直接双击编辑
